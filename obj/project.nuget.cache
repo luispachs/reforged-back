@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+pVU+BE3qds=",
+  "dgSpecHash": "WndnVzyghTY=",
   "success": true,
-  "projectFilePath": "c:\\Users\\lpacheco\\proyectos\\nago-reforged-api\\nago-reforged-api.csproj",
+  "projectFilePath": "C:\\Users\\lpacheco\\proyectos\\nago-reforged-api\\nago-reforged-api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lpacheco\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\lpacheco\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\9.0.10\\microsoft.aspnetcore.authentication.jwtbearer.9.0.10.nupkg.sha512",

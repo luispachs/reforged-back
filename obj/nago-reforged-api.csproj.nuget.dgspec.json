@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\lpacheco\\proyectos\\nago-reforged-api\\nago-reforged-api.csproj": {}
+    "C:\\Users\\lpacheco\\proyectos\\nago-reforged-api\\nago-reforged-api.csproj": {}
   },
   "projects": {
-    "c:\\Users\\lpacheco\\proyectos\\nago-reforged-api\\nago-reforged-api.csproj": {
+    "C:\\Users\\lpacheco\\proyectos\\nago-reforged-api\\nago-reforged-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\lpacheco\\proyectos\\nago-reforged-api\\nago-reforged-api.csproj",
+        "projectUniqueName": "C:\\Users\\lpacheco\\proyectos\\nago-reforged-api\\nago-reforged-api.csproj",
         "projectName": "nago-reforged-api",
-        "projectPath": "c:\\Users\\lpacheco\\proyectos\\nago-reforged-api\\nago-reforged-api.csproj",
+        "projectPath": "C:\\Users\\lpacheco\\proyectos\\nago-reforged-api\\nago-reforged-api.csproj",
         "packagesPath": "C:\\Users\\lpacheco\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\lpacheco\\proyectos\\nago-reforged-api\\obj\\",
+        "outputPath": "C:\\Users\\lpacheco\\proyectos\\nago-reforged-api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lpacheco\\AppData\\Roaming\\NuGet\\NuGet.Config"
