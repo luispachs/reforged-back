@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using nago_reforged_api.Models;
 using nago_reforged_api.Enums;
-using Npgsql;
+using nago_reforged_api.Models;
+
 namespace nago_reforged_api.Context;
 
 public partial class ReforgedContext : DbContext
@@ -31,7 +31,7 @@ public partial class ReforgedContext : DbContext
 
     public virtual DbSet<DpncItem> DpncItems { get; set; }
 
-    public virtual DbSet<DpncSolution> DpncSolutions { get; set; }
+    public virtual DbSet<Models.DpncSolution> DpncSolutions { get; set; }
 
     public virtual DbSet<Enterprise> Enterprises { get; set; }
 
@@ -80,14 +80,6 @@ public partial class ReforgedContext : DbContext
     public virtual DbSet<Warehouse> Warehouses { get; set; }
 
     public virtual DbSet<WeeklySchedule> WeeklySchedules { get; set; }
-
-   
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        //optionsBuilder.UseNpgsql("Host=localhost;Database=nago_reforged;Username=admin;Password=admin1234");
-        NpgsqlConnection.GlobalTypeMapper.MapEnum<RoleArea>("role_area");
-    }
-        
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -305,7 +297,7 @@ public partial class ReforgedContext : DbContext
                 .HasConstraintName("dpnc_items_id_product_fkey");
         });
 
-        modelBuilder.Entity<DpncSolution>(entity =>
+        modelBuilder.Entity<Models.DpncSolution>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("dpnc_solutions_pkey");
 
@@ -1103,8 +1095,8 @@ public partial class ReforgedContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
-            entity.Property(e =>e.Type)
-                .HasColumnName("type");
+            entity.Property(e => e.Type).HasColumnName("type");
+
         });
 
         modelBuilder.Entity<Service>(entity =>

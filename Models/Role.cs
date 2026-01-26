@@ -11,7 +11,7 @@ public partial class Role
     public string Name { get; set; } = null!;
 
     public string? Description { get; set; }
-    public RoleArea Type { get; set; } 
 
+    public RoleArea Type { get; set; }
     public virtual ICollection<Permission> Permissions { get; set; } = new List<Permission>();
 }

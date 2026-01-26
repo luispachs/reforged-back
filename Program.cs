@@ -95,7 +95,7 @@ builder.Services.AddDbContext<ReforgedContext>((opt)=>{
                         Name = "Admin turn",
                         Description = "Turn for admin",
                         FromTime = TimeOnly.FromDateTime(DateTime.Now),
-                        ToTime = TimeOnly.FromDateTime(DateTime.Now.AddHours(1))
+                        ToTime = TimeOnly.FromDateTime(DateTime.Now.AddHours(8))
                     };
                     context.Set<Turn>().Add(turn);
                     var area = new Area{
@@ -112,8 +112,8 @@ builder.Services.AddDbContext<ReforgedContext>((opt)=>{
                         LeaderId = null,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = null,
-                        TurnId = turn.Id,
-                        AreaId = area.Id
+                        Turn = turn,
+                        Area = area
                     };
                     context.Set<Profile>().Add(profile);
                     var permision = new Permission{
