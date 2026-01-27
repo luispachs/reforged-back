@@ -24,7 +24,7 @@ builder.Services.AddCors(
                           {
                               opt.AddPolicy(name:"reforgedPolicy", policy =>
                               {
-                                  policy.WithOrigins("http://localhost:5181","http://localhost:5173")
+                                  policy.WithOrigins(["http://localhost:5181","http://localhost:5173"])
                                         .AllowAnyHeader()
                                         .AllowAnyMethod();
                               });

@@ -5,17 +5,20 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using nago_reforged_api.Context;
+using nago_reforged_api.Models;
 using nago_reforged_api.Schemes;
-using Namotion.Reflection;
+using nago_reforged_api.Security;
 
 public class AuthController : ControllerBase
 {
     private IConfiguration _config;
     private string? audience;
-    public AuthController(IConfiguration config)
+    private ReforgedContext _context;
+    public AuthController(IConfiguration config,ReforgedContext context)
     {
         _config = config;
-       
+        _context = context;
     }
 
     [HttpPost]
@@ -28,23 +31,44 @@ public class AuthController : ControllerBase
         {
             return Unauthorized("Invalid email and/or password.");
         }
-        if (loginScheme.Email != "laps1308@gmail.com" || loginScheme.Password != "123456789")
+
+        var user = _context.Users.FirstOrDefault<User>(u=>u.Email == loginScheme.Email);
+        if(user == null)
+        {
+            Console.WriteLine(loginScheme.Email);
+            return Unauthorized("Invalid email and/or password");
+        }
+
+        if (!Hash.check(loginScheme.Password,user.PasswordHash))
         {
             return Unauthorized("Invalid email and/or password");
         }
 
+        var permissions = _context.Permissions.Join(
+            _context.Profiles,
+            p => p.ProfileId,
+            pr=>pr.Id,
+            (p,pr)=>new {
+                RoleId = p.RoleId,
+                UserId =pr.UserId
+                })
+            .FirstOrDefault(p=>p.UserId == user.Id);
+
         var claims = new List<Claim>()
         {
-            new Claim(ClaimTypes.Name,"Luis Pacheco"),
-            new Claim(ClaimTypes.Email,"laps1308@gmail.com"),
-            new Claim(ClaimTypes.Role, "ADMIN"),
-            new Claim(ClaimTypes.NameIdentifier,"1096217268")
+            new Claim(ClaimTypes.Name, $"{user.Name} {user.Lastname}"),
+            new Claim(ClaimTypes.Email,user.Email),
+            new Claim(ClaimTypes.Role, permissions.RoleId.ToString()),
+            new Claim(ClaimTypes.NameIdentifier,user.Id.ToString())
 
         };
 
 
         return Ok(new
-        {
+        {   
+            id= user.Id,
+            firstname = user.Name,
+            lastname = user.Lastname,
             token = GenerateJwtToken(claims),
             expires = DateTime.Now.AddHours(8)
         });

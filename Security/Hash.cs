@@ -10,6 +10,7 @@ public static class Hash{
 
     public static bool check(string password, string hash){
         var auxhash = Hash.make(password);
+        Console.WriteLine($"Hash {auxhash} == {hash}");
         return auxhash == hash;
     }
 }
