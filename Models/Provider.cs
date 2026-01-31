@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using nago_reforged_api.Enums;
 
 namespace nago_reforged_api.Models;
 
@@ -28,4 +29,6 @@ public partial class Provider
     public virtual ICollection<ServiceOrder> ServiceOrders { get; set; } = new List<ServiceOrder>();
 
     public virtual ICollection<Warehouse> Warehouses { get; set; } = new List<Warehouse>();
+
+    public ProviderType Type { get; set; }
 }

@@ -24,7 +24,7 @@ builder.Services.AddCors(
                           {
                               opt.AddPolicy(name:"reforgedPolicy", policy =>
                               {
-                                  policy.WithOrigins(["http://localhost:5181","http://localhost:5173"])
+                                  policy.WithOrigins(["http://localhost:5181","http://localhost:5174","http://localhost:5173dot"])
                                         .AllowAnyHeader()
                                         .AllowAnyMethod();
                               });
@@ -58,7 +58,25 @@ builder.Services.AddDbContext<ReforgedContext>((opt)=>{
     opt.UseNpgsql(
             builder.Configuration.GetConnectionString("DefaultConnection"),
             (opt)=>{
+                opt.MapEnum<nago_reforged_api.Enums.DpncSolution>("dpnc_solution");
+                opt.MapEnum<DpncStatus>("dpnc_status");
+                opt.MapEnum<MachineStatus>("machine_status");
+                opt.MapEnum<OdpStatus>("odp_status");
+                opt.MapEnum<OdpType>("odp_type");
+                opt.MapEnum<OrdersStatus>("orders_status");
+                opt.MapEnum<PaymentMethod>("payment_method");
+                opt.MapEnum<PaymentStatus>("payment_status");
+                opt.MapEnum<ProcessStatus>("process_status");
+                opt.MapEnum<ProductStatus>("product_status");
+                opt.MapEnum<ProfileStatus>("profile_status");
+                opt.MapEnum<ProviderCalification>("provider_calification");
+                opt.MapEnum<ProviderType>("provider_type");
                 opt.MapEnum<RoleArea>("role_area");
+                opt.MapEnum<ScheduleStatus>("schedule_status");
+                opt.MapEnum<StatusEnterprises>("status_enterprises");
+                opt.MapEnum<UnitMeasureType>("unit_measure_type");
+                opt.MapEnum<WarehouseStatus>("warehouse_status");
+
             }
         )
         .UseSeeding(
@@ -207,6 +225,34 @@ builder.Services.AddDbContext<ReforgedContext>((opt)=>{
                         CreateReception = true,
                     };
                     context.Set<Permission>().Add(permision);
+                    var warehouse = new Provider
+                    {
+                        Name = "Almacen",
+                        Nit ="891301862",
+                        Address ="Cl. 29B #56-26, Guayabal, Medellín, Guayabal, Medellín, Antioquia",
+                        Phone = "604 3496440",
+                        Email = "servicioalcliente@tercol.com.co",
+                        Type = ProviderType.INTERNAL,
+                        CreatedAt = DateTime.Now
+                    };
+                    var za = new Provider{
+                        Name = "Almacen",
+                        Nit ="891301862",
+                        Address ="Cl. 29B #56-26, Guayabal, Medellín, Guayabal, Medellín, Antioquia",
+                        Phone = "604 3496440",
+                        Email = "servicioalcliente@tercol.com.co",
+                        Type = ProviderType.INTERNAL,
+                        CreatedAt = DateTime.Now
+                        };
+                    var plant = new Provider{
+                        Name = "Almacen",
+                        Nit ="891301862",
+                        Address ="Cl. 29B #56-26, Guayabal, Medellín, Guayabal, Medellín, Antioquia",
+                        Phone = "604 3496440",
+                        Email = "servicioalcliente@tercol.com.co",
+                        Type = ProviderType.INTERNAL,
+                        CreatedAt = DateTime.Now
+                        };
                     context.SaveChanges();
                 }
             }

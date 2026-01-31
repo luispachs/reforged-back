@@ -3,13 +3,16 @@ namespace nago_reforged_api.Controllers;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using nago_reforged_api.Context;
 using nago_reforged_api.Models;
 using nago_reforged_api.Schemes;
 using nago_reforged_api.Security;
 
+[ApiController]
 public class AuthController : ControllerBase
 {
     private IConfiguration _config;
@@ -35,7 +38,6 @@ public class AuthController : ControllerBase
         var user = _context.Users.FirstOrDefault<User>(u=>u.Email == loginScheme.Email);
         if(user == null)
         {
-            Console.WriteLine(loginScheme.Email);
             return Unauthorized("Invalid email and/or password");
         }
 
@@ -83,6 +85,20 @@ public class AuthController : ControllerBase
     }
 
 
+    [HttpGet]
+    [Route("api/auth/current")]
+    [Authorize]
+    public async Task<IActionResult> getCurrentUser()
+    {
+        ClaimsPrincipal user = this.User;
+        var currentUser = await _context.Users.FirstOrDefaultAsync<User>(u=>u.Id == int.Parse(user.FindFirst(ClaimTypes.NameIdentifier).Value));
+        return Ok(new {
+            name = currentUser.Name,
+            lastname = currentUser.Lastname,
+            email = currentUser.Email,
+            id = currentUser.Id
+        } );
+    }
     private string GenerateJwtToken(List<Claim> claims)
     {
         string? secretKey = _config.GetValue<string>("reforgedSecret");

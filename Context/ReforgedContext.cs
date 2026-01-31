@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using nago_reforged_api.Enums;
 using nago_reforged_api.Models;
 
 namespace nago_reforged_api.Context;
@@ -31,7 +30,7 @@ public partial class ReforgedContext : DbContext
 
     public virtual DbSet<DpncItem> DpncItems { get; set; }
 
-    public virtual DbSet<Models.DpncSolution> DpncSolutions { get; set; }
+    public virtual DbSet<DpncSolution> DpncSolutions { get; set; }
 
     public virtual DbSet<Enterprise> Enterprises { get; set; }
 
@@ -97,6 +96,7 @@ public partial class ReforgedContext : DbContext
             .HasPostgresEnum("product_type", new[] { "PP", "PT", "MP", "INPUT", "TOOL", "COMBO" })
             .HasPostgresEnum("profile_status", new[] { "ACTIVE", "INACTIVE" })
             .HasPostgresEnum("provider_calification", new[] { "EXCELLENT", "GOOD", "AVERAGE", "BAD", "VERY_BAD" })
+            .HasPostgresEnum("provider_type", new[] { "INTERNAL", "PROVIDER" })
             .HasPostgresEnum("role_area", new[] { "OPERATIVE", "ADMIN" })
             .HasPostgresEnum("schedule_status", new[] { "PENDING", "IN_PROGRESS", "COMPLETED", "CANCELLED" })
             .HasPostgresEnum("status_enterprises", new[] { "ACTIVE", "INACTIVE" })
@@ -297,7 +297,7 @@ public partial class ReforgedContext : DbContext
                 .HasConstraintName("dpnc_items_id_product_fkey");
         });
 
-        modelBuilder.Entity<Models.DpncSolution>(entity =>
+        modelBuilder.Entity<DpncSolution>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("dpnc_solutions_pkey");
 
@@ -1095,8 +1095,6 @@ public partial class ReforgedContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
-            entity.Property(e => e.Type).HasColumnName("type");
-
         });
 
         modelBuilder.Entity<Service>(entity =>
