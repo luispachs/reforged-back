@@ -1047,6 +1047,8 @@ public partial class ReforgedContext : DbContext
             entity.Property(e => e.Phone)
                 .HasMaxLength(21)
                 .HasColumnName("phone");
+            entity.Property(e=> e.Type)
+                .HasColumnName("type");
         });
 
         modelBuilder.Entity<ProviderService>(entity =>
@@ -1095,6 +1097,8 @@ public partial class ReforgedContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
+            entity.Property(e=> e.Type)
+                .HasColumnName("type");
         });
 
         modelBuilder.Entity<Service>(entity =>

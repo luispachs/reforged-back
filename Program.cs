@@ -84,6 +84,7 @@ builder.Services.AddDbContext<ReforgedContext>((opt)=>{
                 var user = context.Set<User>().FirstOrDefault(x => x.Email =="desarrollo@tercol.com.co");
                 if(user==null){
                     user =  new User {
+                        Id =1,
                         Email="desarrollo@tercol.com.co",
                         PasswordHash=Hash.make("lapsDev1308"),
                         Name="luis",
@@ -96,6 +97,7 @@ builder.Services.AddDbContext<ReforgedContext>((opt)=>{
                     };
                      context.Set<User>().Add(user);
                     var enterprise =new Enterprise{
+                        Id = 1,
                         Name = "Tercol",
                         Nit = "123456789",
                         Address = "Calle 123",
@@ -104,12 +106,14 @@ builder.Services.AddDbContext<ReforgedContext>((opt)=>{
                     };
                     context.Set<Enterprise>().Add(enterprise);
                     var rol =  new Role{
+                        Id = 1,
                         Name = "MASTER",
                         Description = "Role for system admin",
                         Type =RoleArea.ADMIN
                     };
                     context.Set<Role>().Add(rol);
                     var turn = new Turn{
+                        Id = 1,
                         Name = "Admin turn",
                         Description = "Turn for admin",
                         FromTime = TimeOnly.FromDateTime(DateTime.Now),
@@ -117,6 +121,7 @@ builder.Services.AddDbContext<ReforgedContext>((opt)=>{
                     };
                     context.Set<Turn>().Add(turn);
                     var area = new Area{
+                        Id = 1,
                         Name = "Admin area",
                         Description = "Area for admin",
                         CreatedAt = DateTime.Now,
@@ -124,6 +129,7 @@ builder.Services.AddDbContext<ReforgedContext>((opt)=>{
                     };
                     context.Set<Area>().Add(area);
                     var profile = new Profile{
+                        Id = 1,
                         User = user,
                         Enterprice = enterprise,
                         SalaryHour = 0,
@@ -135,6 +141,7 @@ builder.Services.AddDbContext<ReforgedContext>((opt)=>{
                     };
                     context.Set<Profile>().Add(profile);
                     var permision = new Permission{
+                        Id=1,
                         Role = rol,
                         Profile = profile,
                         CreateUser = true,
@@ -226,33 +233,39 @@ builder.Services.AddDbContext<ReforgedContext>((opt)=>{
                     };
                     context.Set<Permission>().Add(permision);
                     var warehouse = new Provider
-                    {
-                        Name = "Almacen",
+                    {   
+                        Id = 1,
+                        Name = "Almacen Tercol",
                         Nit ="891301862",
                         Address ="Cl. 29B #56-26, Guayabal, Medellín, Guayabal, Medellín, Antioquia",
-                        Phone = "604 3496440",
-                        Email = "servicioalcliente@tercol.com.co",
+                        Phone = "6043496440 ext 199",
+                        Email = "almacen@tercol.com.co",
                         Type = ProviderType.INTERNAL,
                         CreatedAt = DateTime.Now
                     };
                     var za = new Provider{
-                        Name = "Almacen",
+                        Id = 2,
+                        Name = "Planta Tercol",
                         Nit ="891301862",
                         Address ="Cl. 29B #56-26, Guayabal, Medellín, Guayabal, Medellín, Antioquia",
-                        Phone = "604 3496440",
-                        Email = "servicioalcliente@tercol.com.co",
+                        Phone = "6043496440 ext 200",
+                        Email = "planta@tercol.com.co",
                         Type = ProviderType.INTERNAL,
                         CreatedAt = DateTime.Now
                         };
                     var plant = new Provider{
-                        Name = "Almacen",
+                        Id =3,
+                        Name = "Zona Amarilla Tercol",
                         Nit ="891301862",
                         Address ="Cl. 29B #56-26, Guayabal, Medellín, Guayabal, Medellín, Antioquia",
-                        Phone = "604 3496440",
-                        Email = "servicioalcliente@tercol.com.co",
+                        Phone = "6043496440 ext 201",
+                        Email = "calidad@tercol.com.co",
                         Type = ProviderType.INTERNAL,
                         CreatedAt = DateTime.Now
                         };
+                    context.Set<Provider>().Add(warehouse);
+                    context.Set<Provider>().Add(za);
+                    context.Set<Provider>().Add(plant);
                     context.SaveChanges();
                 }
             }
@@ -403,6 +416,37 @@ builder.Services.AddDbContext<ReforgedContext>((opt)=>{
                         CreateReception = true,
                     };
                     context.Set<Permission>().Add(permision);
+                    var warehouse = new Provider
+                    {
+                        Name = "Almacen Tercol",
+                        Nit ="891301862",
+                        Address ="Cl. 29B #56-26, Guayabal, Medellín, Guayabal, Medellín, Antioquia",
+                        Phone = "6043496440 ext 199",
+                        Email = "almacen@tercol.com.co",
+                        Type = ProviderType.INTERNAL,
+                        CreatedAt = DateTime.Now
+                    };
+                    var za = new Provider{
+                        Name = "Planta Tercol",
+                        Nit ="891301862",
+                        Address ="Cl. 29B #56-26, Guayabal, Medellín, Guayabal, Medellín, Antioquia",
+                        Phone = "6043496440 ext 200",
+                        Email = "planta@tercol.com.co",
+                        Type = ProviderType.INTERNAL,
+                        CreatedAt = DateTime.Now
+                        };
+                    var plant = new Provider{
+                        Name = "Zona Amarilla Tercol",
+                        Nit ="891301862",
+                        Address ="Cl. 29B #56-26, Guayabal, Medellín, Guayabal, Medellín, Antioquia",
+                        Phone = "6043496440 ext 201",
+                        Email = "calidad@tercol.com.co",
+                        Type = ProviderType.INTERNAL,
+                        CreatedAt = DateTime.Now
+                        };
+                    context.Set<Provider>().Add(warehouse);
+                    context.Set<Provider>().Add(za);
+                    context.Set<Provider>().Add(plant);
                     await context.SaveChangesAsync(cancellationToken);
                 }
         });

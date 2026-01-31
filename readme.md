@@ -14,9 +14,28 @@
 3. Ejecutar aplicactivo con Hot Reload 
 > dotnet watch
 
+Si requieres restaurar la base de datos al punto inicia, debes de usar el siguiente comando.
+> DO $$ 
+
+> DECLARE 
+
+> r RECORD;  
+
+> BEGIN  
+ 
+> FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = current_schema()) LOOP  
+
+> EXECUTE 'TRUNCATE TABLE ' || quote_ident(r.tablename) || ' CASCADE';  
+
+> END LOOP; 
+
+> END $$;  
+
+
 ### Ejecución para Despligue
 1. Construir aplicación
 > dotnet build
 2. Ejecutar aplicativo
 > dotnet run
 3. Configurar servidor para realizar reverser proxy a la aplicación construida
+
