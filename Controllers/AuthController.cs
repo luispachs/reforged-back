@@ -96,7 +96,8 @@ public class AuthController : ControllerBase
             name = currentUser.Name,
             lastname = currentUser.Lastname,
             email = currentUser.Email,
-            id = currentUser.Id
+            id = currentUser.Id,
+            photo = currentUser.PhotoUrl
         } );
     }
     private string GenerateJwtToken(List<Claim> claims)
