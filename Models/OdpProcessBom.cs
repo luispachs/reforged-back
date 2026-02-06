@@ -7,15 +7,11 @@ public partial class OdpProcessBom
 {
     public long Id { get; set; }
 
-    public long IdOdpItem { get; set; }
-
     public long IdProcessBom { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
-
-    public virtual OdpItem IdOdpItemNavigation { get; set; } = null!;
 
     public virtual ProcessBom IdProcessBomNavigation { get; set; } = null!;
 

@@ -37,8 +37,6 @@ public partial class Product
 
     public virtual ICollection<MonthlySchedule> MonthlySchedules { get; set; } = new List<MonthlySchedule>();
 
-    public virtual ICollection<OdpItem> OdpItems { get; set; } = new List<OdpItem>();
-
     public virtual ICollection<ProcessBom> ProcessBoms { get; set; } = new List<ProcessBom>();
 
     public virtual ICollection<ProviderService> ProviderServices { get; set; } = new List<ProviderService>();

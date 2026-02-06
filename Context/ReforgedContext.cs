@@ -42,8 +42,6 @@ public partial class ReforgedContext : DbContext
 
     public virtual DbSet<Odp> Odps { get; set; }
 
-    public virtual DbSet<OdpItem> OdpItems { get; set; }
-
     public virtual DbSet<OdpProcessBom> OdpProcessBoms { get; set; }
 
     public virtual DbSet<OdpProcessBomRegister> OdpProcessBomRegisters { get; set; }
@@ -464,34 +462,9 @@ public partial class ReforgedContext : DbContext
             entity.Property(e => e.FinishedAt)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("finished_at");
-        });
-
-        modelBuilder.Entity<OdpItem>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("odp_items_pkey");
-
-            entity.ToTable("odp_items");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.IdOdp).HasColumnName("id_odp");
-            entity.Property(e => e.IdProduct).HasColumnName("id_product");
-            entity.Property(e => e.Quantity)
-                .HasPrecision(13, 4)
-                .HasDefaultValueSql("0.0")
-                .HasColumnName("quantity");
-            entity.Property(e => e.RecipeNumber)
-                .HasDefaultValue((short)1)
-                .HasColumnName("recipe_number");
-
-            entity.HasOne(d => d.IdOdpNavigation).WithMany(p => p.OdpItems)
-                .HasForeignKey(d => d.IdOdp)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("odp_items_id_odp_fkey");
-
-            entity.HasOne(d => d.IdProductNavigation).WithMany(p => p.OdpItems)
-                .HasForeignKey(d => d.IdProduct)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("odp_items_id_product_fkey");
+            entity.Property(e => e.OdpItems)
+                .HasColumnType("jsonb[]")
+                .HasColumnName("odp_items");
         });
 
         modelBuilder.Entity<OdpProcessBom>(entity =>
@@ -505,16 +478,10 @@ public partial class ReforgedContext : DbContext
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("created_at");
-            entity.Property(e => e.IdOdpItem).HasColumnName("id_odp_item");
             entity.Property(e => e.IdProcessBom).HasColumnName("id_process_bom");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("updated_at");
-
-            entity.HasOne(d => d.IdOdpItemNavigation).WithMany(p => p.OdpProcessBoms)
-                .HasForeignKey(d => d.IdOdpItem)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("odp_process_bom_id_odp_item_fkey");
 
             entity.HasOne(d => d.IdProcessBomNavigation).WithMany(p => p.OdpProcessBoms)
                 .HasForeignKey(d => d.IdProcessBom)
@@ -1049,6 +1016,7 @@ public partial class ReforgedContext : DbContext
                 .HasColumnName("phone");
             entity.Property(e=> e.Type)
                 .HasColumnName("type");
+
         });
 
         modelBuilder.Entity<ProviderService>(entity =>
@@ -1097,8 +1065,7 @@ public partial class ReforgedContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
-            entity.Property(e=> e.Type)
-                .HasColumnName("type");
+            entity.Property(e=>e.Type).HasColumnName("type");
         });
 
         modelBuilder.Entity<Service>(entity =>

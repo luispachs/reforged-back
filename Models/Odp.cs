@@ -11,7 +11,7 @@ public partial class Odp
 
     public DateTime? FinishedAt { get; set; }
 
-    public virtual ICollection<Dpnc> Dpncs { get; set; } = new List<Dpnc>();
+    public List<string>? OdpItems { get; set; }
 
-    public virtual ICollection<OdpItem> OdpItems { get; set; } = new List<OdpItem>();
+    public virtual ICollection<Dpnc> Dpncs { get; set; } = new List<Dpnc>();
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using nago_reforged_api.Enums;
 
 namespace nago_reforged_api.Models;
 

@@ -19,6 +19,7 @@ public partial class Provider
     public string Email { get; set; } = null!;
 
     public DateTime? CreatedAt { get; set; }
+    public ProviderType Type { get; set; }
 
     public virtual ICollection<BuyOrder> BuyOrders { get; set; } = new List<BuyOrder>();
 
@@ -29,6 +30,4 @@ public partial class Provider
     public virtual ICollection<ServiceOrder> ServiceOrders { get; set; } = new List<ServiceOrder>();
 
     public virtual ICollection<Warehouse> Warehouses { get; set; } = new List<Warehouse>();
-
-    public ProviderType Type { get; set; }
 }
