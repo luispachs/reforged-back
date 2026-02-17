@@ -32,18 +32,18 @@ public class AuthController : ControllerBase
 
         if(loginScheme == null)
         {
-            return Unauthorized("Invalid email and/or password.");
+            return Unauthorized(new {message = "Invalid email and/or password"});
         }
 
         var user = _context.Users.FirstOrDefault<User>(u=>u.Email == loginScheme.Email);
         if(user == null)
         {
-            return Unauthorized("Invalid email and/or password");
+            return Unauthorized(new {message = "Invalid email and/or password"});
         }
 
         if (!Hash.check(loginScheme.Password,user.PasswordHash))
         {
-            return Unauthorized("Invalid email and/or password");
+            return Unauthorized(new {message = "Invalid email and/or password"});
         }
 
         var permissions = _context.Permissions.Join(
