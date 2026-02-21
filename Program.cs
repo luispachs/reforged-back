@@ -467,6 +467,8 @@ app.UseCors("reforgedPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+var webSockerOption = new WebSocketOptions();
 
+app.UseWebSockets(webSockerOption);
+app.MapControllers();
 app.Run();
