@@ -54,6 +54,10 @@ public class AuthController : ControllerBase
                 UserId =pr.UserId
                 })
             .FirstOrDefault(p=>p.UserId == user.Id);
+        if(permissions == null)
+        {
+            return Unauthorized(new {message = "User has no permissions"});
+        }
 
         var claims = new List<Claim>()
         {
