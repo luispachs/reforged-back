@@ -16,7 +16,6 @@ using nago_reforged_api.Security;
 public class AuthController : ControllerBase
 {
     private IConfiguration _config;
-    private string? audience;
     private ReforgedContext _context;
     public AuthController(IConfiguration config,ReforgedContext context)
     {
